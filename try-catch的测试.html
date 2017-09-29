@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p>网址：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/try...catch</p>
+
+<script>
+    try {
+        throw "myException"; // 用throw抛出一个错误，然后就会去执行catch里面的代码
+    }
+    catch (e) {
+//        注：catch，该特性是非标准的，请尽量不要在生产环境中使用它！
+        console.log(e); // 打印出myException，也就是说这里的e指代throw后的语句
+    }
+
+
+    try {
+        myroutine(); // may throw three types of exceptions
+    } catch (e) {
+        if (e instanceof TypeError) {
+            // statements to handle TypeError exceptions
+            console.log(e);
+        } else if (e instanceof RangeError) {
+            // statements to handle RangeError exceptions
+            console.log(e);
+        } else if (e instanceof EvalError) {
+            // statements to handle EvalError exceptions
+            console.log(e);
+        } else {
+            // statements to handle any unspecified exceptions
+            console.log(e); // 在此打印ReferenceError: myroutine is not defined
+        }
+    } finally {
+        console.log(111);
+    }
+
+
+</script>
+</body>
+</html>

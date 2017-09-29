@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 1.14rem;
+            height: 0.38rem;
+        }
+        img:nth-child(n+4) {
+            width: 3.44rem;
+            height: 7.24rem;
+        }
+    </style>
+</head>
+<body>
+
+<img src="./2.png" alt=""/>
+<img src="./2@2x.png" alt=""/>
+<img src="./2@3x.png" alt=""/>
+<br/>
+<img src="./3.png" alt=""/>
+<img src="./3@2x.png" alt=""/>
+<img src="./3@3x.png" alt=""/>
+</body>
+</html>

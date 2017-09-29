@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<script>
+    // 注：sort会改变原数组；sort不会遍历空数组。
+//    如果比较的函数中返回1则两个元素交换位置，0和-1不交换位置。
+    var arr = [3, 5, 2, 1];
+    // 从小到大排序
+    arr.sort(function (a, b) {
+        return a > b ? 1 : -1;
+    });
+    console.log(arr);// 得到的结果：[1, 2, 3, 5]
+
+    // 将数组中的对象进行排序
+    var arr2 = [
+        { a : 2, b : 3.2},
+        { a : 3, b : 1.2},
+        { a : 4, b : 2.2},
+        { a : 6, b : 1.2},
+        { a : 5, b : 3.2}
+    ]
+    // 从小到大按属性b排序。
+//    x和y就是数组中相邻的两个元素，在这里就是两个对象。
+    var arr3 = arr2.slice()
+    arr3.sort(function(x, y){
+        return x.b > y.b ? 1:-1;
+    });
+    console.log(arr3);
+
+    // 还是按照属性b进行排序，这次从大到小
+    var arr4 = arr2.slice()
+    arr4.sort(function (x, y) {
+        return x.b < y.b ? 1 : -1
+    })
+    console.log(arr4);
+
+    // 先按照b进行排序，然后遇到属性b的值相等，再按照属性a进行排序
+    var arr5 = arr2.slice()
+    arr5.sort(function (x, y) {
+        if (x.b > y.b) {
+            return 1;
+        } else if (x.b === y.b) {
+            return x.a > y.a ? 1 : -1;
+        } else if (x.b < y.b) {
+            return -1;
+        }
+    })
+</script>
+</body>
+</html>

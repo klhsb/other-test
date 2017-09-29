@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no,email=no address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title></title>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+        document.documentElement.setAttribute('dpr',window.devicePixelRatio) // 给html标签设置一个dpr属性
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*需要在属性选择器后面加另一个选择器，才能层叠掉上面js设置的html的font-size*/
+        /*dpr设置字体大小：
+        （1）优势：相同dpr的设备下，字体大小一致，一般不会失真；
+        （2）缺点：虽然不会失真，但相同dpr，可屏幕宽度不一致，有可能导致页面布局混乱！*/
+
+        /*结论：一般来说，rem单位直接设置字体大小就行啦*/
+
+        [dpr^='1'] body {
+            font-size: 20px;
+        }
+        [dpr^='2'] body {
+            font-size: 40px;
+        }
+        [dpr^='3'] body {
+            font-size: 60px;
+        }
+        div {
+            width: 2.5rem;
+            font-size: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    adjfklajfklajdfkl来几个中文的
+</div>
+
+</body>
+</html>

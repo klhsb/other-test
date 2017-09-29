@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            font-size: 0.36rem;
+            background-color: yellowgreen;
+            line-height: 0.47rem;
+            /*padding: 10px;*/
+            /*border: 10px solid #000;*/
+        }
+    </style>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+    </script>
+</head>
+<body>
+<div class="header">123</div>
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+    var htmlFZ = $('html').css('fontSize') // 两者一样
+    var cw = document.documentElement.clientWidth // 两者一样
+    var hei = $('.header').height()
+    var heiFZ = $('.header').css('fontSize')
+    var heiPd = $('.header').css('padding')
+
+    //    $('.header').text(htmlFZ + '与' + cw)
+    $('.header').text(hei + '与' + heiFZ + '与' + heiPd)
+    // 发现控制行高后，高度的数据是一样的，字体大小与padding也一样
+    // 可是看图，发现还是有区别，看起来它们不是同一种字体，不过控制行高应该就能暂时适配好。
+
+</script>
+</body>
+</html>

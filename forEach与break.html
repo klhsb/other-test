@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<script>
+    var arr = [1,23,null,456]
+    arr.forEach(function (v, i) {
+        if (!v) {
+            break
+        }
+        console.log(v);
+    })
+    // 证明forEach不能使用break，会报错的
+</script>
+</body>
+</html>

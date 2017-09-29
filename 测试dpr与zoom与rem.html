@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .aa {
+            width: 1rem;
+            height: 1rem;
+            background-color: #000000;
+        }
+    </style>
+    <script>
+        const scale = 1 / window.devicePixelRatio;
+        document.documentElement.style.zoom = scale * 100 + '%';
+//        var deviceWidth = document.documentElement.clientWidth;
+        var deviceWidth = document.documentElement.clientWidth * window.devicePixelRatio // 结合dpr，然后获取到设备的物理像素的宽度
+//        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+    </script>
+    <!--<script src="../js/vConsole/vconsole.min.js"></script>-->
+</head>
+
+<body>
+<div class="aa"></div>
+<div>
+    总结：
+    <p>1、如果不设置zoom，那直接用document.documentElement.clientWidth获取设备的设立像素的宽度；</p>
+    <p>2、如果设置了zoom，那可以用document.documentElement.clientWidth * window.devicePixelRatio获取设备的物理像素；</p>
+    <p>3、字体大小好像是要同样dpr的设备，那大小也要一样？？不太确定，如果真的是，那要用1 / window.devicePixelRatio去计算。</p>
+</div>
+<script>
+    console.log(window.devicePixelRatio);
+    console.log(1, document.documentElement.clientWidth);
+    console.log(2, window.document.body.clientWidth);
+//    const scale = 1 / window.devicePixelRatio;
+//    document.documentElement.style.zoom = scale * 100 + '%';
+
+    console.log(3, document.documentElement.clientWidth); // 设置zoom后，改值不变，所以改值不理会zoom的改变
+    console.log(4, window.document.body.clientWidth); // 设置zoom后，改值变为document.documentElement.clientWidth * dpr
+
+</script>
+</body>
+</html>
