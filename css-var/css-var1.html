@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --main-color: #06c;
+        }
+        body {
+            font-size: 0.14rem;
+            --bar: red;
+            /*--marginTop: calc(2vh + 20px);*/
+            --marginTop: 20;
+            /*--marginTop: 20px;*/
+            /*如果变量值带有单位，就不能写成字符串。否则无效*/
+            /*--foo: '20px';*/
+            /*font-size: var(--foo);*/
+        /* 有效 */
+            --foo: 14px;
+            font-size: var(--foo);
+        }
+        .var1 {
+            color: var(--bar);
+            font-size: 0.2rem;
+            font-weight: 700;
+        }
+        .var2 {
+            --pad: 0.1rem;
+            color: blue;
+        /*数值与单位直接写在一起，这是无效的。必须使用calc()函数，将它们连接。*/
+            /*margin-top: calc(var(--marginTop) * 1px);*/
+            margin-top: calc(100px / var(--marginTop));
+            font-size: var(--fontSize, 0.2rem);
+            font-weight: 700;
+            padding: var(--pad,10px 15px 20px);
+        }
+        .var3 {
+            /*可以继承父元素的变量，但无法使用兄弟姐妹元素定义的变量*/
+            padding: var(--pad);
+            /*下面--foo会层叠掉body里面定义的--foo*/
+            --foo: 0.2rem;
+            font-size: var(--foo);
+            /*这里会层叠掉#var1定义的--color，因为这是在.var3这个元素自己的作用域中定义的，所以优先级更高！
+            如果.var3元素有个#var3的id，那用#var3定义的--color优先级会比.var3定义的更高！
+            证明：同一个元素，其他只有一个CSS作用域！*/
+            --color: #000;
+            color: var(--color);
+        }
+        :root { --color: blue; }
+        div { --color: green; }
+        #var1 { --color: red; }
+        * { color: var(--color); }
+
+        .var4 {
+            color: var(--main-color);
+            margin-top: 0.1rem;
+            font-size: 0.24rem;
+        }
+
+        /*.var5 p {*/
+            /*color: red;*/
+            /*/!*font-size: 0.2rem;*!/*/
+        /*}*/
+        @supports ( (--a: 0)) {
+            .var5 p {
+                color: red;
+                /*font-size: 0.2rem;*/
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>尝试CSS设置变量的新功能</h1>
+<div>可惜兼容：安卓4.4还不支持！</div>
+<div class="var1" id="var1">
+    声明变量的时候，变量名前面要加两根连词线（--）。
+    <br/>
+    变量名大小写敏感，--header-color和--Header-Color是两个不同变量。
+</div>
+<div class="var2">
+    var()函数用于读取变量。
+    <br/>
+    var()函数还可以使用第二个参数，表示变量的默认值。如果该变量不存在，就会使用这个默认值。
+    <br/>
+    第二个参数不处理内部的逗号或空格，都视作参数的一部分。
+</div>
+<div class="var3" id="">
+    同一个 CSS 变量，可以在多个选择器内声明。读取的时候，优先级最高的声明生效。这与 CSS 的"层叠"（cascade）规则是一致的。
+    <br/>
+    同一个元素，其实只有一个CSS作用域，所以用类名或id去定义变量，其实都属于同一个作用域内的变量，然后变量的优先级就取决于选择器的优先级了！
+    <br/>
+
+</div>
+<div class="var4">
+    全局的变量通常放在根元素:root里面，确保任何选择器都可以读取它们。
+</div>
+
+<div class="var5">
+    <h1>对于不支持 CSS 变量的浏览器，可以采用下面的写法。</h1>
+    <p>
+        a {
+        color: #7F583F;
+        color: var(--primary);
+        }
+    </p>
+    <div>
+        也可以使用@support命令进行检测。
+    </div>
+    <p>
+        @supports ( (--a: 0)) {
+        /* supported */
+        }
+        <br/>
+        @supports ( not (--a: 0)) {
+        /* not supported */
+        }
+    </p>
+</div>
+</body>
+</html>

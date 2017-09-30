@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 0.16rem;
+        }
+        .my-meter {
+            width: 2rem;
+            /*height: 1rem;*/
+            /*发现无法直接通过类名去设置宽高外的其他样式*/
+            /*background-color: red;*/
+            /*color: #000000;*/
+            /*border-radius: 5px;*/
+        }
+
+        /*进度条的颜色需要通过::-webkit-meter-bar之类的伪类选择器进行修改
+        麻烦的是：谷歌浏览器的开发者工具竟然无法查看这些样式~~*/
+        /*/!*::-webkit-meter-bar一般是设置大于value的部分的样式*!/*/
+        /*meter::-webkit-meter-bar{*/
+            /*border-radius: 10px;*/
+            /*background-image: linear-gradient(to right, red, blue);*/
+        /*}*/
+        /*/!*::-webkit-meter-optimum-value一般是设置小于value的部分的样式*!/*/
+        /*meter::-webkit-meter-optimum-value {*/
+            /*border-radius: 10px;*/
+            /*background-image: linear-gradient(to right, red,red);*/
+        /*}*/
+        /*/!*::-webkit-meter-suboptimum-value一般是设置value大于high时，小于value的部分的样式*!/*/
+        /*meter::-webkit-meter-suboptimum-value {*/
+            /*background-image: linear-gradient(to right, green,green);*/
+        /*}*/
+        /*::-webkit-meter-even-less-good-value一般是大于low时，*/
+
+
+        .my-meter2 {
+            width: 1rem;
+        }
+        .my-meter2::-webkit-meter-bar {
+            border-radius: 10px;
+            background-image: linear-gradient(to right, transparent, red);
+        }
+        .my-meter2::-webkit-meter-optimum-value {
+            border-radius: 10px;
+            background-image: linear-gradient(to right, green, blue);
+        }
+    </style>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 3.75 + 'px';
+    </script>
+</head>
+<body>
+
+<p>只用最普通的，不涉及optimum、high、low</p>
+<meter class="my-meter2" value="0.5" min="0" max="10"></meter>
+<br/>
+<hr/>
+<p>meter标签里面，文字是无效的，不会显示在界面上</p>
+<p>meter标签是行内块元素</p>
+<meter class="my-meter" value="5" min="0" max="10">十分之三</meter>
+<meter value="0.6">60%</meter>
+
+<p>尝试最优：发现没啥效果，可能只是给一个标准而已</p>
+<meter class="my-meter" value="5" min="0" max="10" optimum="4" low="3" >尝试最优</meter>
+<p>尝试high：发现value>high时，进度条默认为黄色</p>
+<meter class="my-meter" value="8" min="0" max="10" high="6">尝试high</meter>
+<p>尝试high：发现value>low时，进度条默认为黄色</p>
+<meter class="my-meter" value="7" min="0" max="10" low="6">尝试high</meter>
+
+<div>
+    /*进度条的颜色需要通过::-webkit-meter-bar之类的伪类选择器进行修改
+    麻烦的是：谷歌浏览器的开发者工具竟然无法查看这些样式~~*/
+    <br/>
+    /*::-webkit-meter-bar一般是设置大于value的部分的样式*/
+    meter::-webkit-meter-bar{
+    border-radius: 10px;
+    background-image: linear-gradient(to right, red, blue);
+    }
+</div>
+<br/>
+<hr/>
+<div>
+    /*::-webkit-meter-optimum-value一般是设置小于value的部分的样式*/
+    meter::-webkit-meter-optimum-value {
+    border-radius: 10px;
+    background-image: linear-gradient(to right, red,red);
+    }
+</div>
+<br/>
+<hr/>
+<div>
+    /*::-webkit-meter-suboptimum-value一般是设置value大于high时，小于value的部分的样式*/
+    meter::-webkit-meter-suboptimum-value {
+    background-image: linear-gradient(to right, green,green);
+    }
+    ::-webkit-meter-even-less-good-value一般是大于low时，
+</div>
+<br/>
+<hr/>
+
+
+</body>
+</html>
