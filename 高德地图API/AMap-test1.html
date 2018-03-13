@@ -1,0 +1,106 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <style type="text/css">
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+        #changeCenter {
+            height: 30px;
+            background-color: red;
+        }
+    </style>
+    <title>快速入门</title>
+</head>
+<body>
+<div id="container" tabindex="0"></div>
+<div>
+    <p id="changeCenter">改变中心</p>
+</div>
+
+<!--<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=3d728cf449e3aee87e74e2768d8d449e"></script>-->
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script src="../js/jquery-2.1.1/jquery-2.1.1/jquery.js"></script>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script type="text/javascript" id="s1">
+    // 尝试jq的ajax请求：初始化高德地图成功
+    $.ajax({
+        url: 'http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033',
+        success: function (result) {
+            console.log(typeof result);
+            console.log(AMap);
+            var map = new AMap.Map('container',{
+                resizeEnable: true,
+                zoom: 10,
+                // center: [116.480983, 40.0958]
+                center: [108.29019, 22.75329]
+            });
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
+
+    // 尝试axios请求：初始化高德地图失败，因为AMap is not defined，而返回的结果并不是高德API
+    // axios.get('http://webapi.amap.com/maps?v=1.4.4&key=3d728cf449e3aee87e74e2768d8d449e')
+    //     .then(function (response) {
+    //         console.log(response);
+    //         var map = new AMap.Map('container',{
+    //             resizeEnable: true,
+    //             zoom: 10,
+    //             // center: [116.480983, 40.0958]
+    //             center: [108.29019, 22.75329]
+    //         });
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
+
+
+    // var map = new AMap.Map('container',{
+    //     resizeEnable: true,
+    //     zoom: 10,
+    //     // center: [116.480983, 40.0958]
+    //     center: [108.29019, 22.75329]
+    // });
+    // var changeCenter = document.getElementById('changeCenter')
+    // changeCenter.onclick = function () {
+    //     map.setCenter([116.39,39.9]);
+    // }
+    //
+    // // Marker点标记
+    // var marker = new AMap.Marker({
+    //     position: [116.480983, 39.989628],//marker所在的位置
+    //     map:map//创建时直接赋予map属性
+    // });
+    //
+    // let lineArr = [
+    //     [108.29019, 22.75329],
+    //     [108.79611999999983, 21.859239999999993],
+    //     [109.76036999999978, 21.877370000000003],
+    //     [109.98341599999998, 22.276397999999993],
+    // ];
+    // // 构造轨迹
+    // let polyline = new AMap.Polyline({
+    //     path: lineArr,
+    //     strokeColor: '#1bac2e',
+    //     strokeOpacity: 1,
+    //     strokeWeight: 5,
+    //     strokeStyle: 'solid',
+    //     strokeDasharray: [10, 5],
+    //     showDir: true,
+    //     geodesic: true
+    // });
+    // // 多节点地图自适应显示到合适的范围
+    // // map.setFitView();
+    // polyline.setMap(map); // 绘制Polyline线
+</script>
+</body>
+</html>

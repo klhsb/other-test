@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多次初始化</title>
+    <style type="text/css">
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+        #changeCenter {
+            height: 30px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<p id="pp">点击再次初始化</p>
+
+<script src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom: 10,
+        // center: [116.480983, 40.0958]
+        center: [108.29019, 22.75329]
+    });
+    console.log(1,map);
+    document.getElementById('pp').onclick = function () {
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 10,
+            center: [116.480983, 40.0958]
+            // center: [108.29019, 22.75329]
+        });
+        console.log(2,map);
+    }
+</script>
+</body>
+</html>
