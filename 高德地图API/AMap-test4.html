@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义地图与基础控件</title>
+    <style>
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div>
+    <p id="change">改变模板</p>
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script>
+    var map = new AMap.Map('container', {
+        mapStyle: 'amap://styles/whitesmoke'//样式URL，whitesmoke就是官方模板远山黛的英文名
+    });
+    document.getElementById('change').onclick = function () {
+        map.setMapStyle('amap://styles/b98d2de427cc3bced6046b66b9554c7c'); // 这里用到自定义地图的id
+    }
+    AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView', 'AMap.Geolocation'],
+        function(){
+            map.addControl(new AMap.ToolBar());
+
+            map.addControl(new AMap.Scale());
+
+            map.addControl(new AMap.OverView({isOpen:true}));
+
+            map.addControl(new AMap.Geolocation()); // 定位暂时没看到效果，可能要配置其他属性吧
+        });
+</script>
+</body>
+</html>

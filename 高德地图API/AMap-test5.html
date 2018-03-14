@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>覆盖物与图层</title>
+    <style>
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div>
+    <p id="change">改变模板</p>
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script>
+    var map = new AMap.Map('container',{
+        resizeEnable: true,
+        zoom: 10,
+        center: [116.480983, 40.0958]
+    });
+    var marker = new AMap.Marker({
+        position: [116.480983, 39.989628],
+    });
+    marker.setMap(map);
+    var circle = new AMap.Circle({
+        center: [116.480983, 39.989628],
+        radius: 100,
+        fillOpacity:0.2,
+        strokeWeight:1
+    })
+    circle.setMap(map);
+    map.setFitView() // 可以自适应到具体地图缩放级别
+    var info = new AMap.InfoWindow({
+        content:"信息窗体<br>这里是方恒科技大厦",
+        offset:new AMap.Pixel(0,-28)
+    })
+    info.open(map,marker.getPosition())
+    document.getElementById('change').onclick = function () {
+        map.setMapStyle('amap://styles/b98d2de427cc3bced6046b66b9554c7c'); // 这里用到自定义地图的id
+    }
+
+    // 叠加图层
+    var traffic = new AMap.TileLayer.Traffic(); // 交通状况图层
+    traffic.setMap(map)
+</script>
+</body>
+</html>
