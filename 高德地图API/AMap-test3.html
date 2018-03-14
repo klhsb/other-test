@@ -27,18 +27,38 @@
     var map = new AMap.Map('container', {
         resizeEnable: true,
         zoom: 10,
-        // center: [116.480983, 40.0958]
-        center: [108.29019, 22.75329]
+        center: [116.480983, 40.0958]
+        // center: [108.29019, 22.75329]
     });
     console.log(1,map);
     document.getElementById('pp').onclick = function () {
         var map = new AMap.Map('container', {
             resizeEnable: true,
             zoom: 10,
-            center: [116.480983, 40.0958]
-            // center: [108.29019, 22.75329]
+            // center: [116.480983, 40.0958]
+            center: [108.29019, 22.75329]
         });
         console.log(2,map);
+        let lineArr = [
+            [108.29019, 22.75329],
+            [108.79611999999983, 21.859239999999993],
+            [109.76036999999978, 21.877370000000003],
+            [109.98341599999998, 22.276397999999993],
+        ];
+        // 构造轨迹
+        let polyline = new AMap.Polyline({
+            path: lineArr,
+            strokeColor: '#1bac2e',
+            strokeOpacity: 1,
+            strokeWeight: 5,
+            strokeStyle: 'solid',
+            strokeDasharray: [10, 5],
+            showDir: true,
+            geodesic: true
+        });
+        // 多节点地图自适应显示到合适的范围
+        // map.setFitView();
+        polyline.setMap(map); // 绘制Polyline线
     }
 </script>
 </body>
