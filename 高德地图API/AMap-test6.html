@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>改变地图中心点</title>
+    <style>
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div>
+    <button id="btn" type="button" style="font-size: 24px;">改变地图中心点</button>
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script>
+    var map = new AMap.Map('container',{
+        resizeEnable: true,
+        zoom: 10,
+        center: [116.480983, 40.0958]
+    });
+    var posArr = [
+        [116.397428, 39.90923],
+        [116.480983, 39.989628],
+        [117.000923, 36.675807]
+    ]
+    var markers = []
+    var infoWindow = new AMap.InfoWindow();
+    posArr.forEach((item, i) => {
+        let marker = new AMap.Marker({
+            position: item,
+            map: map
+        })
+        markers.push(marker)
+        marker.content = i + ''
+        marker.on('click', markerClick);
+        // 先强制执行一次click，让信息窗口停留在最后一个
+        marker.emit('click', {
+            target: marker // 必须传入marker去决定e.target的指向
+        });
+    })
+    function markerClick(e){
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+
+    map.setFitView() // 可以自适应到具体地图缩放级别
+    console.log('this.markers',markers);
+
+    var btn = document.getElementById('btn')
+    btn.onclick = function () {
+        console.log(1);
+        var LngLat = new AMap.LngLat(117.000923, 36.675807)
+        console.log('LngLat',LngLat);
+        // map.panTo(LngLat);
+        // 调用panTo方法，改变地图中心点
+        map.panTo(markers[2].getPosition()); // 也可以使用marker的getPosition获取到改点的LngLat对象
+        // 也要显示对应marker的信息窗口
+        markers[2].emit('click', {
+            target: markers[2]
+        });
+    }
+</script>
+</body>
+</html>
