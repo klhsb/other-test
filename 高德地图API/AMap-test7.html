@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义标点内容</title>
+    <style>
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+        #container {
+            width: 70%;
+            height: 70%;
+        }
+
+        .amap-marker-label {
+            border: 1px solid #e9eaec;
+        }
+        .icon-mark-truckno {
+            width: 70px;
+            font-size: 12px;
+            background-color: #fff;
+            border: 1px solid #e9eaec;
+            text-align: center;
+            /*position: absolute;*/
+            top: 0;
+            left: 50%;
+            /*margin-left: -70%;*/
+            transform: translate(-50%);
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div>
+    <button id="btn" type="button" style="font-size: 24px;">改变地图中心点</button>
+</div>
+
+<div class="icon-mark" style="position: relative; display: inline-block; margin-left: 50px;">
+    <img src="./images/icon-mark_bs.png" alt="" style="display: block;">
+    <span class="icon-mark-truckno">车牌号码</span>
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=b62d85275af15d4d527d3f0c03f69033"></script>
+<script>
+    var map = new AMap.Map('container',{
+        resizeEnable: true,
+        zoom: 10,
+        center: [116.480983, 40.0958]
+    });
+    var posArr = [
+        [116.397428, 39.90923],
+        [116.480983, 39.989628],
+        [117.000923, 36.675807]
+    ]
+    var markers = []
+    var infoWindow = new AMap.InfoWindow();
+    var content = `<div class="icon-mark" style="position: relative; display: inline-block;">
+    <img src="./images/icon-mark_bs.png" alt="" style="display: block;">
+    <span class="icon-mark-truckno">车牌号码</span>
+</div>`
+    posArr.forEach((item, i) => {
+        let marker = new AMap.Marker({
+            // content: content,  // 自定义点标记覆盖物内容
+            label: {
+                content: '<span class="icon-mark-truckno">车牌号码</span>',
+                // offset: new AMap.Pixel('20%', 20)
+            },
+            position: item,
+            map: map
+        })
+        markers.push(marker)
+        marker.content = i + ''
+        marker.on('click', markerClick);
+        // 先强制执行一次click，让信息窗口停留在最后一个
+        marker.emit('click', {
+            target: marker // 必须传入marker去决定e.target的指向
+        });
+    })
+    function markerClick(e){
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+
+    map.setFitView() // 可以自适应到具体地图缩放级别
+    console.log('this.markers',markers);
+</script>
+</body>
+</html>
