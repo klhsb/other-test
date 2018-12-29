@@ -16,17 +16,30 @@
         .amap-marker-label {
             border: 1px solid #e9eaec;
         }
+        .icon-mark {
+            /*position: relative;*/
+            /*display: inline-block;*/
+            /*margin-left: 50px;*/
+            display: flex;
+            flex-direction: column;
+        }
         .icon-mark-truckno {
+            display: inline-block;
+            position: relative;
             width: 70px;
             font-size: 12px;
             background-color: #fff;
             border: 1px solid #e9eaec;
             text-align: center;
-            /*position: absolute;*/
-            top: 0;
-            left: 50%;
+            position: absolute;
+            /*top: 0;*/
+            /*left: 50%;*/
             /*margin-left: -70%;*/
-            transform: translate(-50%);
+            /*transform: translate(-50%);*/
+        }
+        .icon-mark-img {
+            display: block;
+            margin-top: -10px;
         }
     </style>
 </head>
@@ -53,22 +66,31 @@
         [116.480983, 39.989628],
         [117.000923, 36.675807]
     ]
+    var clickContent = {
+        a:2
+    };
     var markers = []
     var infoWindow = new AMap.InfoWindow();
+//     var content = `<div class="icon-mark">
+//     <span class="icon-mark-truckno">车牌号码</span><img class="icon-mark-img" src="./images/icon-mark_bs.png" alt="" style="display: block;">
+// </div>`
     var content = `<div class="icon-mark" style="position: relative; display: inline-block;">
-    <img src="./images/icon-mark_bs.png" alt="" style="display: block;">
-    <span class="icon-mark-truckno">车牌号码</span>
+    <img class="icon-mark-img" src="./images/icon-mark_bs.png" alt="" style="display: block;">
+    <span class="icon-mark-truckno" onclick="clearMarker(clickContent.a)">车牌号码</span>
 </div>`
     posArr.forEach((item, i) => {
         let marker = new AMap.Marker({
             // content: content,  // 自定义点标记覆盖物内容
-            label: {
-                content: '<span class="icon-mark-truckno">车牌号码</span>',
-                // offset: new AMap.Pixel('20%', 20)
-            },
+            content: document.querySelector('.icon-mark'),  // 自定义点标记覆盖物内容
+            // label: {
+            //     content: '<span class="icon-mark-truckno">车牌号码</span>',
+            //     // offset: new AMap.Pixel('20%', 20)
+            // },
             position: item,
             map: map
-        })
+        });
+        console.log('icon-mark-truckno',document.querySelectorAll('.icon-mark-truckno'));
+        console.log('marker',marker);
         markers.push(marker)
         marker.content = i + ''
         marker.on('click', markerClick);
@@ -77,13 +99,25 @@
             target: marker // 必须传入marker去决定e.target的指向
         });
     })
+    console.log(2,'icon-mark-truckno',document.getElementById('container').getElementsByClassName('icon-mark-truckno'));
+    setTimeout(function () {
+        console.log(3,'icon-mark-truckno',document.querySelectorAll('.icon-mark-truckno'));
+
+    }, 2000)
+    map.setFitView() // 可以自适应到具体地图缩放级别
+    console.log('this.markers',markers);
+
     function markerClick(e){
+        console.log('markerClick',e);
+
         infoWindow.setContent(e.target.content);
         infoWindow.open(map, e.target.getPosition());
     }
 
-    map.setFitView() // 可以自适应到具体地图缩放级别
-    console.log('this.markers',markers);
+    function clearMarker(e) {
+        console.log('clearMarker',e);
+
+    }
 </script>
 </body>
 </html>
